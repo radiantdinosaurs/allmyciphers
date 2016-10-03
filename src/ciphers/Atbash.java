@@ -13,14 +13,10 @@ public class Atbash {
     /**
      * Takes in a message and encodes it with the Atbash cipher.
      * @param message user-inputted message that needs encoding
-     * @param outputArea GUI used to display messages to user
      * @return
      */
-    public String encode(String message, JTextArea outputArea) {
+    public String encode(String message) {
         StringBuilder encodedMessage = new StringBuilder();
-
-        //Letting the user know the message is going to start being encoded
-        outputArea.append("Decryptifying..." + "\n");
 
         //Encoding the message and appending it to the StringBuilder
         for(char c : message.toCharArray()) {
@@ -28,32 +24,22 @@ public class Atbash {
             encodedMessage.append(reverse);
         }
 
-        //Letting the user know that the message is encoded
-        outputArea.append("Done!" + "\n");
-
         return encodedMessage.toString();
     }
 
     /**
      * Takes in a message and decodes it with the Atbash cipher.
-     * @param message
-     * @param outputArea
+     * @param message user-inputted message that needs decoding
      * @return
      */
-    public String decode(String message, JTextArea outputArea) {
+    public String decode(String message) {
         StringBuilder decodedMessage = new StringBuilder();
-
-        //Letting the user know the message is going to start being decoded
-        outputArea.append("Decryptifying..." + "\n");
 
         //Decoding the message and appending it to the StringBuilder
         for(char c : message.toCharArray()) {
             char reversed = (char)(('a' - c) + 'z');
             decodedMessage.append(reversed);
         }
-
-        //Letting the user know that the message is decoded
-        outputArea.append("Done!" + "\n");
 
         return decodedMessage.toString();
     }

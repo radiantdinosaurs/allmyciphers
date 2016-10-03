@@ -77,16 +77,12 @@ public class Caesar extends AlphaCipher {
 	 * less than 2 characters. If there's no error, it calls caesarDecrypt to decrypt the message.
 	 * @param shift number of positions in the alphabet to shift
 	 * @param message message that needs decryption
-	 * @param outputArea area that displays messages on the screen
 	 * @return decrypted message
 	 */
-	public String checkForErrorAndPrintDecoded(int shift, String message, JTextArea outputArea){
+	public String checkForErrorAndPrintDecoded(int shift, String message){
 		if(message.length() < 2) return "Could not decrypt. Soz.";
 		String decodedMessage;
-		outputArea.append("Decryptifying..." + "\n");
 		decodedMessage = decode(shift, message, alphabet);
-		outputArea.append("Done!"+"\n");
-		outputArea.append("Proceeding to post..." + "\n");
 
 		return decodedMessage;
 	}

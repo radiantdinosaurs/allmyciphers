@@ -156,7 +156,7 @@ public class UserPanel extends JPanel implements ActionListener {
 			String result;
 			if(option.equals("Vigenere")) result = vigenere.cryptify(keyword, message, console);
 			else if(option.equals("Caesar")) result = caesar.checkForErrorAndPrintEncoded(Integer.parseInt(keyword), message);
-			else if(option.equals("Atbash")) result = atbash.encode(message, console);
+			else if(option.equals("Atbash")) result = atbash.encode(message);
 			else result = "";
 			//clearFields();
 			resultField.setText(result);
@@ -167,8 +167,8 @@ public class UserPanel extends JPanel implements ActionListener {
 			String option = (String)cipherOptions.getSelectedItem();
 			String result;
 			if(option.equals("Vigenere")) result = vigenere.decryptify(keyword, message, console);
-			else if(option.equals("Caesar")) result = caesar.checkForErrorAndPrintDecoded(Integer.parseInt(keyword), message, console);
-			else if(option.equals("Atbash")) result = atbash.decode(message, console);
+			else if(option.equals("Caesar")) result = caesar.checkForErrorAndPrintDecoded(Integer.parseInt(keyword), message);
+			else if(option.equals("Atbash")) result = atbash.decode(message);
 			else result = "";
 			resultField.setText(result);
 
