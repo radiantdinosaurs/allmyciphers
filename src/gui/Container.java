@@ -1,7 +1,6 @@
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.*;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -29,9 +28,14 @@ public class Container extends JFrame {
      * Methods
      ********************************************/
     public void init(){
+
+        Dimension monitorDimension = Toolkit.getDefaultToolkit().getScreenSize();
+        final int monitorHeight = monitorDimension.height;
+        final int monitorWidth = monitorDimension.width;
+
         setTitle(title);
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
-        setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        setPreferredSize(new Dimension(monitorWidth/2, monitorHeight/2));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -39,7 +43,7 @@ public class Container extends JFrame {
         menu = new Menu();
 
         scroll = new JScrollPane(upanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scroll.setPreferredSize(new Dimension(Container.WIDTH, 0));
+        scroll.setPreferredSize(new Dimension(monitorWidth/2, monitorHeight/2));
         scroll.getVerticalScrollBar().setUnitIncrement(16);
 
         add(scroll);
