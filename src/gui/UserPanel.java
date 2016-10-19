@@ -21,6 +21,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 
+/**
+ * TODO:
+ * If you see classes with inconsistent naming schemes, change the names of
+ * variables, so they employ the same uniform naming.
+ * The reason why you wouldn't change the naming scheme is because of a company
+ * coding style guide or if the class is being extensively changed by a peer.
+ */
 public class UserPanel extends JPanel implements ActionListener {
 	/********************************************
 	 * Local Variables
@@ -44,6 +51,17 @@ public class UserPanel extends JPanel implements ActionListener {
 	/********************************************
 	 * Constructors
 	 ********************************************/
+	 /**
+	  * TODO:
+	  * There's a common sentiment that a block of code (code between {})
+		* should fit within the height of a monitor (~50 lines).
+		* So, for constructors like this, it would be prudent to move sections of
+		* it out to methods.
+		* Additionally, all of this logic should not be in a constructor, but a
+		* separate method, such as "init()".
+		* A busy constructor is considered bad practice and is called a
+		* "loaded constructor."
+	  */
 	@SuppressWarnings("unchecked")
 	public UserPanel(){
 		final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -55,11 +73,36 @@ public class UserPanel extends JPanel implements ActionListener {
 		caesar = new Caesar();
 		atbash = new Atbash();
 
+		/**
+		 * TODO:
+		 * since this section is only initializing the cipher options, you can
+		 * export it to a method that returns an ArrayList.
+		 * ex.
+		 * private ArrayList<String> getCipherNames() {
+		 *		ArrayList<String> cipherNames = new ArrayList<>();
+		 *		cipherNames.add(Vigenere.class.getSimpleName());
+		 *		cipherNames.add(Caesar.class.getSimpleName());
+		 *		cipherNames.add(Atbash.class.getSimpleName());
+		 *
+		 *		return cipherNames;
+	 	 * }
+		 *
+		 * In the example, I use .class.getSimpleName() since I'm assuming the
+		 * class name will be the name of the cipher.
+		 */
 		cipherTypes = new ArrayList<>();
 		cipherTypes.add("Vigenere");
 		cipherTypes.add("Caesar");
 		cipherTypes.add("Atbash");
 
+		/**
+		 * TODO:
+		 * There various ways to break up the following code, but a simplistic
+		 * way would be to split the logic by rows.
+		 * So, you would have a method like createFirstRow() that returns a JPanel.
+		 * If there are any dependencies, like width or height, you can pass those
+		 * as arguments to the method.
+		 */
 		cipherOptions = new JComboBox(cipherTypes.toArray());
 		cipherOptions.addActionListener(this);
 		cipherOptions.setFont(font);

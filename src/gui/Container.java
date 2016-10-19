@@ -12,6 +12,11 @@ public class Container extends JFrame {
      * Local Variables
      ********************************************/
     private static final long serialVersionUID = 1L;
+    /**
+     * TODO:
+     * If there's no reason to use the default or public modifier,
+     * set class members to be "private"
+     */
     final static int WIDTH = 720, HEIGHT = 480;
 
     String title = "AllMyCiphers";
@@ -21,6 +26,11 @@ public class Container extends JFrame {
     /********************************************
      * Constructors
      ********************************************/
+     /**
+      * TODO:
+      * Java automatically generates a default constructor like this one,
+      * if no other constructors are defined.
+      */
     public Container(){
     }//end constructor
 
