@@ -1,17 +1,13 @@
 package gui;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
 
 import ciphers.*;
 import util.DimensionUtil;
@@ -21,163 +17,151 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 
-/**
- * TODO:
- * If you see classes with inconsistent naming schemes, change the names of
- * variables, so they employ the same uniform naming.
- * The reason why you wouldn't change the naming scheme is because of a company
- * coding style guide or if the class is being extensively changed by a peer.
- */
 public class UserPanel extends JPanel implements ActionListener {
 	/********************************************
 	 * Local Variables
 	 ********************************************/
 
 	private JPanel row1, row2, row3, row4, content;
-	private JButton Encrypt, Decrypt, clear;
+	private JButton encrypt, decrypt, clear;
 	private JComboBox cipherOptions;
 	private JTextArea console;
 	private JTextField keywordField, messageField, resultField;
 	private JLabel resultLabel;
 	private JScrollPane scroll;
-
 	private ArrayList<String> cipherTypes;
-
 	private Caesar caesar;
 	private Vigenere vigenere;
 	private Atbash atbash;
+	final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	final int fontSize = DimensionUtil.computerBaseFontSize(screenSize.width, screenSize.height);
+	Font font = new Font("Arial", Font.PLAIN,fontSize);
 
-
-	/********************************************
-	 * Constructors
-	 ********************************************/
-	 /**
-	  * TODO:
-	  * There's a common sentiment that a block of code (code between {})
-		* should fit within the height of a monitor (~50 lines).
-		* So, for constructors like this, it would be prudent to move sections of
-		* it out to methods.
-		* Additionally, all of this logic should not be in a constructor, but a
-		* separate method, such as "init()".
-		* A busy constructor is considered bad practice and is called a
-		* "loaded constructor."
-	  */
 	@SuppressWarnings("unchecked")
 	public UserPanel(){
-		final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-
-		final int fontSize = DimensionUtil.computerBaseFontSize(screenSize.width, screenSize.height);
-		Font font = new Font("Arial", Font.PLAIN,fontSize);
-
 		vigenere = new Vigenere();
 		caesar = new Caesar();
 		atbash = new Atbash();
-
-		/**
-		 * TODO:
-		 * since this section is only initializing the cipher options, you can
-		 * export it to a method that returns an ArrayList.
-		 * ex.
-		 * private ArrayList<String> getCipherNames() {
-		 *		ArrayList<String> cipherNames = new ArrayList<>();
-		 *		cipherNames.add(Vigenere.class.getSimpleName());
-		 *		cipherNames.add(Caesar.class.getSimpleName());
-		 *		cipherNames.add(Atbash.class.getSimpleName());
-		 *
-		 *		return cipherNames;
-	 	 * }
-		 *
-		 * In the example, I use .class.getSimpleName() since I'm assuming the
-		 * class name will be the name of the cipher.
-		 */
-		cipherTypes = new ArrayList<>();
-		cipherTypes.add("Vigenere");
-		cipherTypes.add("Caesar");
-		cipherTypes.add("Atbash");
-
-		/**
-		 * TODO:
-		 * There various ways to break up the following code, but a simplistic
-		 * way would be to split the logic by rows.
-		 * So, you would have a method like createFirstRow() that returns a JPanel.
-		 * If there are any dependencies, like width or height, you can pass those
-		 * as arguments to the method.
-		 */
-		cipherOptions = new JComboBox(cipherTypes.toArray());
+		cipherOptions = new JComboBox(getCipherNames().toArray());
 		cipherOptions.addActionListener(this);
 		cipherOptions.setFont(font);
+		createKeywordField();
+		createMessageField();
+		createEncryptButton();
+		createDecryptButton();
+		createClearButton();
+		createConsole();
+		add(createFirstRow());
+		add(createSecondRow());
+		add(createThirdRow());
+		add(createFourthRow());
+		setPreferredSize(new Dimension(screenSize.width/2, screenSize.height/2));
+		setVisible(true);
+	}
 
+	private ArrayList<String> getCipherNames() {
+		ArrayList<String> cipherNames = new ArrayList<>();
+		cipherNames.add(Vigenere.class.getSimpleName());
+		cipherNames.add(Caesar.class.getSimpleName());
+		cipherNames.add(Atbash.class.getSimpleName());
+
+		return cipherNames;
+	}
+
+	private JTextField createKeywordField() {
 		keywordField = new JTextField("Keyword here...",15);
 		keywordField.setMargin(new Insets(5,5,5,5));
 		keywordField.setFont(font);
+		return keywordField;
+	}
 
+	private JPanel createFirstRow() {
 		row1 = new JPanel();
 		row1.setLayout(new GridBagLayout());
 		row1.add(cipherOptions);
 		row1.add(keywordField);
 		row1.setVisible(true);
+		return row1;
+	}
 
-		messageField = new JTextField("Message here...", 20);
-		messageField.setMargin(new Insets(5,5,5,5));
-		messageField.setFont(font);
+	private JButton createEncryptButton() {
+		encrypt = new JButton("encrypt");
+		encrypt.setFont(font);
+		encrypt.addActionListener(this);
+		return encrypt;
+	}
 
-		Encrypt = new JButton("Encrypt");
-		Encrypt.setFont(font);
-		Encrypt.addActionListener(this);
+	private JButton createDecryptButton() {
+		decrypt = new JButton("decrypt");
+		decrypt.addActionListener(this);
+		decrypt.setFont(font);
+		return decrypt;
+	}
 
-		Decrypt = new JButton("Decrypt");
-		Decrypt.addActionListener(this);
-		Decrypt.setFont(font);
-
+	private JButton createClearButton() {
 		clear = new JButton("Clear");
 		clear.addActionListener(this);
 		clear.setFont(font);
+		return clear;
+	}
 
+	private JTextField createMessageField() {
+		messageField = new JTextField("Message here...", 20);
+		messageField.setMargin(new Insets(5,5,5,5));
+		messageField.setFont(font);
+		return messageField;
+	}
+
+	private JPanel createSecondRow() {
 		row2 = new JPanel();
 		row2.setLayout(new FlowLayout());
 		row2.add(messageField);
-		row2.add(Encrypt);
-		row2.add(Decrypt);
+		row2.add(encrypt);
+		row2.add(decrypt);
 		row2.add(clear);
+		return row2;
+	}
 
+	private JTextArea createConsole() {
 		console = new JTextArea(10, 75);
 		console.setEditable(false);
 		console.setMargin(new Insets(10,10,10,10));
 		console.setFont(font);
 		console.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+		return console;
+	}
 
+	private JPanel createThirdRow() {
 		scroll = new JScrollPane(console);
 		row3 = new JPanel();
 		row3.setLayout(new FlowLayout());
 		row3.add(scroll);
+		return row3;
+	}
 
-		row4 = new JPanel();
-		row4.setLayout(new FlowLayout());
-
+	private JLabel createResultLabel() {
 		resultLabel = new JLabel("Your results");
 		resultLabel.setFont(font);
 		resultLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 15));
+		return resultLabel;
+	}
 
+	private JTextField createResultField() {
 		resultField = new JTextField("Your results come out here...", 50);
 		resultField.setEditable(false);
 		resultField.setMargin(new Insets(3,3,3,3));
 		resultField.setFont(font);
-
-		row4.add(resultLabel);
-		row4.add(resultField);
-
-		add(row1);
-		add(row2);
-		add(row3);
-		add(row4);
-		setPreferredSize(new Dimension(screenSize.width/2, screenSize.height/2));
-
-		setVisible(true);
+		return resultField;
 	}
 
-	/********************************************
-	 * Methods
-	 ********************************************/
+	private JPanel createFourthRow() {
+		row4 = new JPanel();
+		row4.setLayout(new FlowLayout());
+		row4.add(createResultLabel());
+		row4.add(createResultField());
+		return row4;
+	}
+
 	public void clearFields(){
 		keywordField.setText("");
 		console.setText("");
@@ -209,7 +193,7 @@ public class UserPanel extends JPanel implements ActionListener {
 
 			}
 		}//end elseif
-		else if(e.getSource()==Encrypt){
+		else if(e.getSource()== encrypt){
 			String keyword = keywordField.getText().trim();
 			String message = messageField.getText().trim();
 			String option = (String)cipherOptions.getSelectedItem();
@@ -221,7 +205,7 @@ public class UserPanel extends JPanel implements ActionListener {
 			//clearFields();
 			resultField.setText(result);
 		}//end elseif
-		else if(e.getSource()==Decrypt){
+		else if(e.getSource()== decrypt){
 			String keyword = keywordField.getText().trim();
 			String message = messageField.getText().trim();
 			String option = (String)cipherOptions.getSelectedItem();

@@ -8,39 +8,33 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 public class Menu extends JMenuBar implements ActionListener {
-/********************************************
- * Local Variables
- ********************************************/
-private static final long serialVersionUID = 1L;
-private JMenu File, Help;
-private JMenuItem Export, Exit, AboutAllMyCiphers;
 
-/********************************************
- * Constructors
- ********************************************/
+	private static final long serialVersionUID = 1L;
+	private JMenu file, help;
+	private JMenuItem export, exit, aboutAllMyCiphers;
+
 	public Menu(){
-		File = new JMenu("File");
-		Help = new JMenu("Help");
-		Export = new JMenuItem("Export");
-		Export.addActionListener(this);
-		Exit = new JMenuItem("Exit");
-		Exit.addActionListener(this);
-		AboutAllMyCiphers = new JMenuItem("About");
-		AboutAllMyCiphers.addActionListener(this);
-		File.add(Export);
-		File.add(Exit);
-		Help.add(AboutAllMyCiphers);
-		add(File);
-		add(Help);
+		file = new JMenu("file");
+		help = new JMenu("help");
+		export = new JMenuItem("export");
+		export.addActionListener(this);
+		exit = new JMenuItem("exit");
+		exit.addActionListener(this);
+		aboutAllMyCiphers = new JMenuItem("About");
+		aboutAllMyCiphers.addActionListener(this);
+		file.add(export);
+		file.add(exit);
+		help.add(aboutAllMyCiphers);
+		add(file);
+		add(help);
 	}
 
 
-/********************************************
- * Methods
- ********************************************/	
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==Exit){
+
+		if(e.getSource()== exit){
 			System.exit(0);
-		}//endif
-	}//end actionPerformed
-}//end Menu
+		}
+
+	}
+}

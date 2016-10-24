@@ -1,6 +1,5 @@
 package ciphers;
 
-import javax.swing.*;
 import java.lang.StringBuilder;
 
 /**

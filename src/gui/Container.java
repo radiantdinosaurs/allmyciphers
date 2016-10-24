@@ -3,40 +3,17 @@ package gui;
 import java.awt.*;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneLayout;
 
 public class Container extends JFrame {
-    /********************************************
-     * Local Variables
-     ********************************************/
+
     private static final long serialVersionUID = 1L;
-    /**
-     * TODO:
-     * If there's no reason to use the default or public modifier,
-     * set class members to be "private"
-     */
     final static int WIDTH = 720, HEIGHT = 480;
+    private String title = "AllMyCiphers";
+    private JScrollPane scroll;
+    private UserPanel upanel;
+    private Menu menu;
 
-    String title = "AllMyCiphers";
-    JScrollPane scroll;
-    UserPanel upanel;
-    Menu menu;
-    /********************************************
-     * Constructors
-     ********************************************/
-     /**
-      * TODO:
-      * Java automatically generates a default constructor like this one,
-      * if no other constructors are defined.
-      */
-    public Container(){
-    }//end constructor
-
-    /********************************************
-     * Methods
-     ********************************************/
     public void init(){
 
         Dimension monitorDimension = Toolkit.getDefaultToolkit().getScreenSize();
@@ -63,6 +40,5 @@ public class Container extends JFrame {
 
         pack();
 
-        //upanel.DEBUG();
-    }//end init
+    }
 }

@@ -7,14 +7,6 @@ import javax.swing.JTextArea;
  */
 public class Caesar extends AlphaCipher {
 
-	/**
-	 * TODO:
-	 * If a default constructor does not do anything, you can remove it.
-	 * Java automatically generates a default constructor like this one if no
-	 * constructors are available.
-	 */
-	public Caesar() {
-	}
 
 	/**
 	 * Takes in a message, and replaces each letter of the message with a different letter of the
